@@ -1,0 +1,9 @@
+venv/
+__pycache__/
+*.py[cod]
+models/*
+!models/.gitkeep
+test-images/*
+!test-images/.gitkeep
+results/*
+!results/.gitkeep

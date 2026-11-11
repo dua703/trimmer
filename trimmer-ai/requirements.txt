@@ -1,0 +1,6 @@
+transformers
+accelerate
+timm
+pillow
+fastapi
+python-multipart

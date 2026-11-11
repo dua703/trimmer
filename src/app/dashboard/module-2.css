@@ -1,0 +1,486 @@
+﻿.profile-page, .assessment-page {
+  --plum: #4a2040;
+  --plum-dark: #311528;
+  --ivory: #fff6ef;
+  --cream: #fff4ec;
+  --peach: #ffd4c2;
+  --coral: #c45c6a;
+  --rose-gold: #d4a07a;
+  --muted: #7a534c;
+  --line: #f0cfc3;
+  --danger: #a51d37;
+  color: var(--plum);
+}
+.profile-page .eyebrow, .assessment-page .eyebrow { margin: 0; color: var(--coral); font-size: 11px; font-weight: 700; letter-spacing: .24em; text-transform: uppercase; }
+.profile-page .form-intro, .assessment-page .form-intro { margin: 10px 0 0; color: var(--muted); font-size: 14px; line-height: 1.7; }
+.profile-page .form-grid, .assessment-page .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 24px; }
+.profile-page .field, .assessment-page .field { display: flex; min-width: 0; flex-direction: column; gap: 7px; }
+.profile-page .field.full, .assessment-page .field.full { grid-column: 1 / -1; }
+.profile-page .field span, .assessment-page .field span { font-size: 12px; font-weight: 600; }
+.profile-page .field input, .assessment-page .field input { width: 100%; height: 45px; padding: 0 13px; border: 1px solid var(--line); border-radius: 12px; outline: 0; background: #fff; color: var(--plum-dark); }
+.profile-page .field input:focus, .assessment-page .field input:focus, .profile-page .field select:focus, .assessment-page .field select:focus, .profile-page .field textarea:focus, .assessment-page .field textarea:focus { border-color: var(--rose-gold); box-shadow: 0 0 0 3px #d4a07a25; }
+.profile-page .field select, .profile-page .field textarea, .assessment-page .field select, .assessment-page .field textarea { width: 100%; min-height: 45px; border: 1px solid var(--line); border-radius: 12px; padding: 10px 13px; outline: 0; background: #fff; color: var(--plum-dark); font: inherit; }
+.profile-page .field textarea, .assessment-page .field textarea { resize: vertical; line-height: 1.5; }
+.profile-page .submit-button, .profile-page .secondary-button, .assessment-page .submit-button, .assessment-page .secondary-button { display: flex; min-height: 47px; width: 100%; align-items: center; justify-content: center; gap: 10px; border: 0; border-radius: 999px; cursor: pointer; font-size: 13px; font-weight: 700; text-decoration: none; }
+.profile-page .submit-button, .assessment-page .submit-button { margin-top: 20px; background: var(--plum); color: var(--ivory); box-shadow: 0 12px 28px #4a204038; }
+.profile-page .secondary-button, .assessment-page .secondary-button { width: auto; min-height: 40px; padding: 0 18px; border: 1px solid var(--line); background: white; color: var(--plum); }
+.profile-page .submit-button:hover, .profile-page .secondary-button:hover, .assessment-page .submit-button:hover, .assessment-page .secondary-button:hover { filter: brightness(1.08); }
+.profile-page .submit-button:disabled, .assessment-page .submit-button:disabled { cursor: wait; opacity: .65; }
+.profile-page .text-button, .assessment-page .text-button { padding: 0; border: 0; background: none; color: var(--plum); cursor: pointer; font-weight: 700; text-decoration: underline; text-decoration-color: var(--coral); text-underline-offset: 3px; }
+.profile-page .form-error, .profile-page .form-message, .assessment-page .form-error, .assessment-page .form-message { margin: 14px 0 0; border-radius: 12px; padding: 11px 13px; font-size: 13px; line-height: 1.55; }
+.profile-page .form-error, .assessment-page .form-error { background: #fff0f0; color: var(--danger); }
+.profile-page .form-message, .assessment-page .form-message { background: #f2f8ef; color: #315b35; }
+.profile-page .notice, .assessment-page .notice { margin-top: 14px; border: 1px solid #f0d5a8; border-radius: 12px; padding: 13px; background: #fff9e9; color: #6f4d25; font-size: 12px; line-height: 1.6; }
+.profile-page .empty-state, .assessment-page .empty-state { margin-top: 20px; border-radius: 14px; padding: 18px; background: var(--cream); color: var(--muted); }
+.profile-page .danger-button, .assessment-page .danger-button { color: var(--danger); }
+.profile-page button, .profile-page input, .profile-page select, .profile-page textarea, .assessment-page button, .assessment-page input, .assessment-page select, .assessment-page textarea { font: inherit; }
+.profile-page a, .assessment-page a { color: inherit; }
+.profile-page .brand-name, .assessment-page .brand-name { margin: 0; font: 600 58px/1 var(--font-serif), "Cormorant Garamond", Georgia, serif; letter-spacing: -1px; }
+.profile-page .avatar-row { display: flex; align-items: center; gap: 18px; margin: 26px 0 34px; flex-wrap: wrap; }
+.profile-page .profile-avatar { width: 92px; height: 92px; border-radius: 50%; object-fit: cover; background: var(--peach); }
+.profile-page .avatar-placeholder { display: grid; place-items: center; color: var(--plum); font: 600 38px var(--font-serif), "Cormorant Garamond", Georgia, serif; }
+.profile-page .avatar-upload { display: flex; align-items: end; gap: 12px; flex-wrap: wrap; }
+.profile-page .crop-backdrop { position: fixed; z-index: 20; inset: 0; display: grid; place-items: center; padding: 20px; background: #211923a8; }
+.profile-page .crop-dialog { width: min(100%, 440px); border: 1px solid var(--line); border-radius: 22px; padding: 26px; background: #fffaf7; box-shadow: 0 24px 80px #1d101c55; }
+.profile-page .crop-dialog h2 { margin: 0; color: var(--plum); font: 600 30px/1.1 var(--font-serif), "Cormorant Garamond", Georgia, serif; }
+.profile-page .crop-canvas { display: block; width: min(100%, 320px); height: auto; margin: 20px auto; border-radius: 50%; cursor: grab; touch-action: none; }
+.profile-page .crop-canvas:active { cursor: grabbing; }
+.profile-page .crop-zoom input { width: 100%; accent-color: var(--plum); }
+.profile-page .crop-actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 20px; }
+.profile-page .crop-actions .submit-button { width: auto; min-height: 40px; padding: 0 18px; }
+.profile-page .assessment-list { display: grid; gap: 14px; margin-top: 22px; }
+.profile-page .assessment-card { border: 1px solid var(--line); border-radius: 16px; padding: 18px; background: #fffaf7; color: var(--muted); font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; }
+.profile-page .assessment-card h3, .profile-page .compare-panel h3 { margin: 5px 0 0; color: var(--plum); font: 600 24px/1.1 var(--font-serif), "Cormorant Garamond", Georgia, serif; }
+.profile-page .assessment-heading { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+.profile-page .assessment-heading .eyebrow { font-size: 9px; }
+.profile-page .assessment-results { padding-left: 20px; }
+.profile-page .assessment-result-fields { display: grid; gap: 10px; margin-top: 8px; }
+.profile-page .assessment-result-row { display: grid; grid-template-columns: 1fr 1.4fr auto; gap: 10px; align-items: end; }
+.profile-page .remove-result { min-height: 45px; }
+.profile-page .add-result { justify-self: start; margin-top: 12px; }
+.profile-page .compare-panel, .profile-page .assessment-entry { margin-top: 28px; border-top: 1px solid var(--line); padding-top: 18px; }
+.profile-page .comparison { margin-top: 14px; border-radius: 14px; padding: 12px 16px; background: var(--cream); color: var(--muted); font-size: 13px; }
+.profile-page .assessment-entry summary { cursor: pointer; color: var(--plum); font-weight: 700; }
+.profile-page .assessment-entry > .form-intro { margin: 12px 0; }
+.assessment-page .grooming-assessment-list { display: grid; gap: 14px; margin-top: 20px; }
+.assessment-page .grooming-history-card { border: 1px solid var(--line); border-radius: 16px; padding: 18px; background: #fffaf7; color: var(--muted); font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; }
+.assessment-page .grooming-history-card header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.assessment-page .grooming-history-card h3 { margin: 5px 0 0; color: var(--plum); font: 600 24px/1.1 var(--font-serif), "Cormorant Garamond", Georgia, serif; }
+.assessment-page .grooming-history-card details { border-top: 1px solid var(--line); margin-top: 14px; padding-top: 12px; }
+.assessment-page .grooming-history-card summary { color: var(--plum); cursor: pointer; font-weight: 700; }
+.assessment-page .grooming-history-card h4, .assessment-page .assessment-report h4 { margin: 14px 0 4px; color: var(--plum); }
+.assessment-page .assessment-prediction { margin-top: 12px; }
+.assessment-page .assessment-prediction h4 { margin: 0; }
+.assessment-page .assessment-report { margin-top: 18px; border: 1px solid #bdd6b7; border-radius: 16px; padding: 18px; background: #f7fbf4; color: var(--muted); font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; }
+.assessment-page .assessment-report h3 { margin: 0; color: var(--plum); font: 600 25px/1.1 var(--font-serif), "Cormorant Garamond", Georgia, serif; }
+.assessment-page .assessment-report ul, .assessment-page .grooming-history-card ul { padding-left: 20px; }
+.assessment-page .assessment-select-all { margin-top: 16px; }
+
+/* Module 2 Â· Profile dashboard (scoped; does not restyle Module 1 or Module 3) */
+.profile-page.dashboard-shell {
+  min-height: 100vh;
+  padding: 0;
+  background:
+    radial-gradient(1100px 520px at 28% -12%, #ffd4c24d, transparent 58%),
+    radial-gradient(820px 420px at 100% 0%, #c45c6a1f, transparent 52%),
+    linear-gradient(180deg, #fff6ef 0%, #ffe8dc 46%, #fff4ec 100%);
+}
+.profile-page > .notice {
+  width: auto;
+  margin: 12px 16px 0;
+}
+.profile-page .profile-layout {
+  display: grid;
+  grid-template-columns: 268px minmax(0, 1fr);
+  min-height: 100vh;
+}
+.profile-page .profile-sidebar {
+  position: sticky;
+  top: 0;
+  z-index: 14;
+  display: flex;
+  height: 100vh;
+  flex-direction: column;
+  gap: 22px;
+  padding: 28px 18px;
+  border-right: 1px solid var(--line);
+  background: linear-gradient(180deg, #3d1a35 0%, #4a2040 58%, #672b58 100%);
+  color: var(--ivory);
+}
+.profile-page .profile-sidebar .brand-name {
+  font-size: 36px;
+  line-height: 1;
+  color: var(--ivory);
+}
+.profile-page .profile-sidebar .profile-brand-kicker {
+  margin: 6px 0 0;
+  color: #f0d5a8;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+.profile-page .profile-sidebar-nav {
+  display: grid;
+  gap: 6px;
+  flex: 1;
+}
+.profile-page .profile-sidebar-link {
+  display: flex;
+  width: 100%;
+  min-height: 42px;
+  align-items: center;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: #f7e9e4;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  text-decoration: none;
+}
+.profile-page .profile-sidebar-link:hover,
+.profile-page .profile-sidebar-link:focus-visible {
+  background: #ffffff18;
+}
+.profile-page .profile-sidebar-link.active {
+  background: #fff6ef;
+  color: var(--plum);
+  box-shadow: 0 8px 18px #1d101c33;
+}
+.profile-page .profile-signout {
+  margin-top: auto;
+  color: #f0d5a8;
+}
+.profile-page .profile-sidebar form { margin-top: auto; }
+.profile-page .profile-sidebar-backdrop { display: none; }
+.profile-page .profile-mobile-bar { display: none; }
+.profile-page .profile-main {
+  min-width: 0;
+  padding: 28px 32px 64px;
+}
+.profile-page .profile-hero,
+.profile-page .profile-panel,
+.profile-page .profile-form {
+  width: min(100%, 860px);
+  margin: 0;
+}
+.profile-page .profile-form { display: block; }
+.profile-page .profile-hero,
+.profile-page .profile-panel {
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  padding: clamp(22px, 4vw, 40px);
+  background: #ffffffed;
+  box-shadow: 0 20px 52px #3b243612;
+}
+.profile-page .profile-hero h1,
+.profile-page .profile-panel h2 {
+  margin: 10px 0 0;
+  color: var(--plum);
+}
+.profile-page .profile-hero h1 {
+  max-width: 16ch;
+  font: 600 clamp(36px, 5vw, 52px)/1.06 "Cormorant Garamond", Georgia, serif;
+}
+.profile-page .profile-panel h2 {
+  font: 600 30px/1.12 "Cormorant Garamond", Georgia, serif;
+}
+.profile-page .profile-hero .form-intro,
+.profile-page .profile-panel > .form-intro {
+  max-width: 54ch;
+}
+.profile-page .profile-identity {
+  display: grid;
+  grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+  gap: 22px 28px;
+  align-items: center;
+  margin-top: 28px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: linear-gradient(160deg, #fffaf7 0%, #fff4ec 100%);
+}
+.profile-page .profile-avatar-row {
+  display: grid;
+  gap: 14px;
+  align-items: start;
+  margin: 0;
+  min-width: 0;
+}
+.profile-page .profile-avatar-stage {
+  width: 124px;
+  height: 124px;
+  padding: 4px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #f0d5a8, #c45c6a);
+  box-shadow: 0 14px 30px #4a20401f;
+}
+.profile-page .profile-avatar {
+  width: 116px;
+  height: 116px;
+  border: 3px solid #fffaf7;
+  box-shadow: none;
+}
+.profile-page .avatar-placeholder {
+  width: 116px;
+  height: 116px;
+  background: var(--peach);
+  font-size: 48px;
+}
+.profile-page .profile-avatar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.profile-page .profile-photo-action {
+  position: relative;
+  display: grid;
+  gap: 8px;
+  min-width: min(100%, 240px);
+}
+.profile-page .profile-photo-hint {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.45;
+}
+.profile-page .profile-file-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.profile-page .profile-photo-button,
+.profile-page .profile-avatar-actions .secondary-button {
+  width: auto;
+  min-height: 40px;
+  padding: 0 16px;
+}
+.profile-page .profile-identity-text { min-width: 0; }
+.profile-page .profile-full-name {
+  margin: 0;
+  color: var(--plum);
+  font: 600 clamp(28px, 4vw, 38px)/1.1 "Cormorant Garamond", Georgia, serif;
+  overflow-wrap: anywhere;
+}
+.profile-page .profile-username,
+.profile-page .profile-auth {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+.profile-page .profile-username {
+  color: var(--coral);
+  font-weight: 700;
+}
+.profile-page .form-grid { margin-top: 20px; gap: 16px; }
+.profile-page .field > span {
+  color: var(--plum);
+  font-size: 12px;
+  font-weight: 700;
+}
+.profile-page .field input,
+.profile-page .field select,
+.profile-page .field textarea {
+  border-radius: 14px;
+  background: #fff;
+}
+.profile-page .field input:disabled {
+  color: var(--muted);
+  background: var(--cream);
+  cursor: not-allowed;
+}
+.profile-page .profile-field-hint {
+  color: var(--muted);
+  font-size: 11px;
+}
+.profile-page .profile-pref-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 18px;
+}
+.profile-page .profile-pref-tile {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-height: 86px;
+  margin: 0;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: #fffaf7;
+  color: var(--muted);
+  cursor: pointer;
+}
+.profile-page .profile-pref-tile:hover,
+.profile-page .profile-pref-tile:focus-within {
+  border-color: var(--rose-gold);
+  box-shadow: 0 0 0 3px #d4a07a22;
+}
+.profile-page .profile-pref-tile input {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  flex: 0 0 auto;
+  accent-color: var(--plum);
+}
+.profile-page .profile-pref-tile strong {
+  display: block;
+  color: var(--plum);
+  font-size: 14px;
+}
+.profile-page .profile-pref-tile small {
+  display: block;
+  margin-top: 4px;
+  line-height: 1.45;
+}
+.profile-page .profile-panel > .submit-button,
+.profile-page .profile-entry-actions .submit-button {
+  max-width: 280px;
+}
+.profile-page .assessment-list { gap: 16px; }
+.profile-page .profile-history-card {
+  padding: 20px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #fffaf7, #fff6ef);
+  box-shadow: 0 10px 24px #3b24360c;
+}
+.profile-page .profile-chip {
+  display: inline-flex;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid var(--line);
+  font-size: 9px;
+}
+.profile-page .profile-score {
+  margin: 8px 0 0;
+  color: var(--plum);
+}
+.profile-page .profile-empty {
+  border: 1px dashed var(--line);
+  background: #fffaf7;
+  text-align: center;
+}
+.profile-page .profile-compare {
+  margin-top: 24px;
+  padding-top: 22px;
+}
+.profile-page .profile-compare h3 {
+  margin: 0 0 4px;
+  font: 600 26px/1.1 "Cormorant Garamond", Georgia, serif;
+}
+.profile-page .profile-compare-result {
+  display: grid;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  background: #fff;
+}
+.profile-page .profile-compare-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 10px;
+  align-items: baseline;
+  margin: 0;
+}
+.profile-page .profile-entry {
+  margin-top: 26px;
+  padding: 18px 18px 8px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: #fffaf7;
+}
+.profile-page .profile-entry summary {
+  padding-bottom: 8px;
+  font-size: 15px;
+}
+.profile-page .profile-crop-dialog {
+  width: min(100%, 460px);
+  padding: 28px;
+  border-radius: 24px;
+}
+.profile-page .profile-crop-frame {
+  width: min(100%, 320px);
+  margin: 18px auto;
+  padding: 6px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #f0d5a8, #c45c6a);
+  box-shadow: 0 16px 36px #4a204029;
+}
+.profile-page .profile-crop-frame .crop-canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  background: #fffaf7;
+}
+.profile-page .crop-actions .submit-button { margin-top: 0; }
+
+@media (max-width: 780px) {
+  .profile-page .profile-layout { grid-template-columns: 1fr; }
+  .profile-page .profile-mobile-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .profile-page .profile-mobile-bar .brand-name {
+    font-size: 32px;
+    color: var(--plum);
+  }
+  .profile-page .profile-mobile-bar .profile-brand-kicker {
+    margin: 4px 0 0;
+    color: var(--coral);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+  }
+  .profile-page .profile-sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 30;
+    width: min(84vw, 300px);
+    height: 100vh;
+    transform: translateX(-105%);
+    transition: transform .2s ease;
+    box-shadow: 18px 0 40px #1d101c44;
+  }
+  .profile-page .menu-open .profile-sidebar { transform: translateX(0); }
+  .profile-page .profile-sidebar-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 25;
+    border: 0;
+    background: #21192366;
+  }
+  .profile-page .profile-main { padding: 18px 16px 56px; }
+  .profile-page .form-grid,
+  .profile-page .profile-pref-grid,
+  .profile-page .profile-identity,
+  .profile-page .profile-compare-row {
+    grid-template-columns: 1fr;
+  }
+  .profile-page .profile-hero h1 { max-width: none; }
+  .profile-page .assessment-result-row { grid-template-columns: 1fr; }
+  .profile-page .remove-result { justify-self: start; }
+}
+
+@media (max-width: 430px) {
+  .profile-page .profile-hero,
+  .profile-page .profile-panel { padding: 20px 16px; }
+  .profile-page .profile-identity { padding: 16px; }
+}
+

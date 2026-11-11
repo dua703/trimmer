@@ -1,0 +1,1003 @@
+﻿.profile-page, .assessment-page {
+  --plum: #4a2040;
+  --plum-dark: #311528;
+  --ivory: #fff6ef;
+  --cream: #fff4ec;
+  --peach: #ffd4c2;
+  --coral: #c45c6a;
+  --rose-gold: #d4a07a;
+  --muted: #7a534c;
+  --line: #f0cfc3;
+  --danger: #a51d37;
+  color: var(--plum);
+}
+.profile-page .eyebrow, .assessment-page .eyebrow { margin: 0; color: var(--coral); font-size: 11px; font-weight: 700; letter-spacing: .24em; text-transform: uppercase; }
+.profile-page .form-intro, .assessment-page .form-intro { margin: 10px 0 0; color: var(--muted); font-size: 14px; line-height: 1.7; }
+.profile-page .form-grid, .assessment-page .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 24px; }
+.profile-page .field, .assessment-page .field { display: flex; min-width: 0; flex-direction: column; gap: 7px; }
+.profile-page .field.full, .assessment-page .field.full { grid-column: 1 / -1; }
+.profile-page .field span, .assessment-page .field span { font-size: 12px; font-weight: 600; }
+.profile-page .field input, .assessment-page .field input { width: 100%; height: 45px; padding: 0 13px; border: 1px solid var(--line); border-radius: 12px; outline: 0; background: #fff; color: var(--plum-dark); }
+.profile-page .field input:focus, .assessment-page .field input:focus, .profile-page .field select:focus, .assessment-page .field select:focus, .profile-page .field textarea:focus, .assessment-page .field textarea:focus { border-color: var(--rose-gold); box-shadow: 0 0 0 3px #d4a07a25; }
+.profile-page .field select, .profile-page .field textarea, .assessment-page .field select, .assessment-page .field textarea { width: 100%; min-height: 45px; border: 1px solid var(--line); border-radius: 12px; padding: 10px 13px; outline: 0; background: #fff; color: var(--plum-dark); font: inherit; }
+.profile-page .field textarea, .assessment-page .field textarea { resize: vertical; line-height: 1.5; }
+.profile-page .submit-button, .profile-page .secondary-button, .assessment-page .submit-button, .assessment-page .secondary-button { display: flex; min-height: 47px; width: 100%; align-items: center; justify-content: center; gap: 10px; border: 0; border-radius: 999px; cursor: pointer; font-size: 13px; font-weight: 700; text-decoration: none; }
+.profile-page .submit-button, .assessment-page .submit-button { margin-top: 20px; background: var(--plum); color: var(--ivory); box-shadow: 0 12px 28px #4a204038; }
+.profile-page .secondary-button, .assessment-page .secondary-button { width: auto; min-height: 40px; padding: 0 18px; border: 1px solid var(--line); background: white; color: var(--plum); }
+.profile-page .submit-button:hover, .profile-page .secondary-button:hover, .assessment-page .submit-button:hover, .assessment-page .secondary-button:hover { filter: brightness(1.08); }
+.profile-page .submit-button:disabled, .assessment-page .submit-button:disabled { cursor: wait; opacity: .65; }
+.profile-page .text-button, .assessment-page .text-button { padding: 0; border: 0; background: none; color: var(--plum); cursor: pointer; font-weight: 700; text-decoration: underline; text-decoration-color: var(--coral); text-underline-offset: 3px; }
+.profile-page .form-error, .profile-page .form-message, .assessment-page .form-error, .assessment-page .form-message { margin: 14px 0 0; border-radius: 12px; padding: 11px 13px; font-size: 13px; line-height: 1.55; }
+.profile-page .form-error, .assessment-page .form-error { background: #fff0f0; color: var(--danger); }
+.profile-page .form-message, .assessment-page .form-message { background: #f2f8ef; color: #315b35; }
+.profile-page .notice, .assessment-page .notice { margin-top: 14px; border: 1px solid #f0d5a8; border-radius: 12px; padding: 13px; background: #fff9e9; color: #6f4d25; font-size: 12px; line-height: 1.6; }
+.profile-page .empty-state, .assessment-page .empty-state { margin-top: 20px; border-radius: 14px; padding: 18px; background: var(--cream); color: var(--muted); }
+.profile-page .danger-button, .assessment-page .danger-button { color: var(--danger); }
+.profile-page button, .profile-page input, .profile-page select, .profile-page textarea, .assessment-page button, .assessment-page input, .assessment-page select, .assessment-page textarea { font: inherit; }
+.profile-page a, .assessment-page a { color: inherit; }
+.profile-page .brand-name, .assessment-page .brand-name { margin: 0; font: 600 58px/1 var(--font-serif), "Cormorant Garamond", Georgia, serif; letter-spacing: -1px; }
+.profile-page .avatar-row { display: flex; align-items: center; gap: 18px; margin: 26px 0 34px; flex-wrap: wrap; }
+.profile-page .profile-avatar { width: 92px; height: 92px; border-radius: 50%; object-fit: cover; background: var(--peach); }
+.profile-page .avatar-placeholder { display: grid; place-items: center; color: var(--plum); font: 600 38px var(--font-serif), "Cormorant Garamond", Georgia, serif; }
+.profile-page .avatar-upload { display: flex; align-items: end; gap: 12px; flex-wrap: wrap; }
+.profile-page .crop-backdrop { position: fixed; z-index: 20; inset: 0; display: grid; place-items: center; padding: 20px; background: #211923a8; }
+.profile-page .crop-dialog { width: min(100%, 440px); border: 1px solid var(--line); border-radius: 22px; padding: 26px; background: #fffaf7; box-shadow: 0 24px 80px #1d101c55; }
+.profile-page .crop-dialog h2 { margin: 0; color: var(--plum); font: 600 30px/1.1 var(--font-serif), "Cormorant Garamond", Georgia, serif; }
+.profile-page .crop-canvas { display: block; width: min(100%, 320px); height: auto; margin: 20px auto; border-radius: 50%; cursor: grab; touch-action: none; }
+.profile-page .crop-canvas:active { cursor: grabbing; }
+.profile-page .crop-zoom input { width: 100%; accent-color: var(--plum); }
+.profile-page .crop-actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 20px; }
+.profile-page .crop-actions .submit-button { width: auto; min-height: 40px; padding: 0 18px; }
+.profile-page .assessment-list { display: grid; gap: 14px; margin-top: 22px; }
+.profile-page .assessment-card { border: 1px solid var(--line); border-radius: 16px; padding: 18px; background: #fffaf7; color: var(--muted); font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; }
+.profile-page .assessment-card h3, .profile-page .compare-panel h3 { margin: 5px 0 0; color: var(--plum); font: 600 24px/1.1 var(--font-serif), "Cormorant Garamond", Georgia, serif; }
+.profile-page .assessment-heading { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+.profile-page .assessment-heading .eyebrow { font-size: 9px; }
+.profile-page .assessment-results { padding-left: 20px; }
+.profile-page .assessment-result-fields { display: grid; gap: 10px; margin-top: 8px; }
+.profile-page .assessment-result-row { display: grid; grid-template-columns: 1fr 1.4fr auto; gap: 10px; align-items: end; }
+.profile-page .remove-result { min-height: 45px; }
+.profile-page .add-result { justify-self: start; margin-top: 12px; }
+.profile-page .compare-panel, .profile-page .assessment-entry { margin-top: 28px; border-top: 1px solid var(--line); padding-top: 18px; }
+.profile-page .comparison { margin-top: 14px; border-radius: 14px; padding: 12px 16px; background: var(--cream); color: var(--muted); font-size: 13px; }
+.profile-page .assessment-entry summary { cursor: pointer; color: var(--plum); font-weight: 700; }
+.profile-page .assessment-entry > .form-intro { margin: 12px 0; }
+.assessment-page .grooming-assessment-list { display: grid; gap: 14px; margin-top: 20px; }
+.assessment-page .grooming-history-card { border: 1px solid var(--line); border-radius: 16px; padding: 18px; background: #fffaf7; color: var(--muted); font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; }
+.assessment-page .grooming-history-card header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.assessment-page .grooming-history-card h3 { margin: 5px 0 0; color: var(--plum); font: 600 24px/1.1 var(--font-serif), "Cormorant Garamond", Georgia, serif; }
+.assessment-page .grooming-history-card details { border-top: 1px solid var(--line); margin-top: 14px; padding-top: 12px; }
+.assessment-page .grooming-history-card summary { color: var(--plum); cursor: pointer; font-weight: 700; }
+.assessment-page .grooming-history-card h4, .assessment-page .assessment-report h4 { margin: 14px 0 4px; color: var(--plum); }
+.assessment-page .assessment-prediction { margin-top: 12px; }
+.assessment-page .assessment-prediction h4 { margin: 0; }
+.assessment-page .assessment-report { margin-top: 18px; border: 1px solid #bdd6b7; border-radius: 16px; padding: 18px; background: #f7fbf4; color: var(--muted); font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; }
+.assessment-page .assessment-report h3 { margin: 0; color: var(--plum); font: 600 25px/1.1 var(--font-serif), "Cormorant Garamond", Georgia, serif; }
+.assessment-page .assessment-report ul, .assessment-page .grooming-history-card ul { padding-left: 20px; }
+.assessment-page .assessment-select-all { margin-top: 16px; }
+
+/* Module 3 Â· Grooming studio (scoped; does not restyle Module 1 or Module 2) */
+.assessment-page.dashboard-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  overflow: hidden;
+  padding: 0;
+  background:
+    radial-gradient(900px 480px at 72% -8%, #ffd4c255, transparent 58%),
+    radial-gradient(720px 420px at 100% 100%, #c45c6a1f, transparent 52%),
+    linear-gradient(180deg, #fff7f1 0%, #ffe8dc 48%, #fff4ec 100%);
+}
+.assessment-page > .notice {
+  flex: 0 0 auto;
+  width: auto;
+  margin: 10px 14px 0;
+}
+.assessment-page .ga-studio {
+  display: grid;
+  grid-template-columns: 252px minmax(0, 1fr);
+  flex: 1;
+  min-height: 0;
+}
+.assessment-page .ga-rail {
+  position: sticky;
+  top: 0;
+  z-index: 14;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  gap: 22px;
+  padding: 28px 18px;
+  border-right: 1px solid #f0cfc366;
+  background: linear-gradient(180deg, #3d1a35 0%, #4a2040 58%, #672b58 100%);
+  color: var(--ivory);
+  box-shadow: 18px 0 48px #3b243612;
+}
+.assessment-page .ga-rail .brand-name {
+  font-size: 36px;
+  line-height: 1;
+  color: var(--ivory);
+}
+.assessment-page .ga-brand-kicker {
+  margin: 6px 0 0;
+  color: #f0d5a8;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+.assessment-page .ga-rail-nav {
+  display: grid;
+  gap: 6px;
+  flex: 1;
+}
+.assessment-page .ga-rail-link {
+  display: flex;
+  width: 100%;
+  min-height: 42px;
+  align-items: center;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: #f7e9e4;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  text-decoration: none;
+  transition: background .16s ease, color .16s ease, box-shadow .16s ease;
+}
+.assessment-page .ga-rail-link:hover,
+.assessment-page .ga-rail-link:focus-visible {
+  background: #ffffff18;
+}
+.assessment-page .ga-rail-link.active {
+  background: #fff6ef;
+  color: var(--plum);
+  box-shadow: 0 8px 18px #1d101c33;
+}
+.assessment-page .ga-signout { color: #f0d5a8; }
+.assessment-page .ga-rail form { margin-top: auto; }
+.assessment-page .ga-sidebar-backdrop { display: none; }
+.assessment-page .ga-mobile-bar { display: none; }
+.assessment-page .ga-stage {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  flex-direction: column;
+  overflow: hidden;
+}
+.assessment-page .ga-stage::before,
+.assessment-page .ga-stage::after {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  content: "";
+  filter: blur(70px);
+}
+.assessment-page .ga-stage::before {
+  top: -120px;
+  right: 8%;
+  width: 420px;
+  height: 420px;
+  background: #ffd4c24d;
+}
+.assessment-page .ga-stage::after {
+  right: -80px;
+  bottom: -80px;
+  width: 340px;
+  height: 340px;
+  background: #c45c6a22;
+}
+.assessment-page .ga-workspace {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  min-height: 0;
+  flex: 1;
+  flex-direction: column;
+  overflow: auto;
+  padding: 28px 32px 36px;
+}
+.assessment-page .ga-workspace[hidden] { display: none !important; }
+.assessment-page .ga-workspace.active { animation: ga-enter .45s ease; }
+.assessment-page .ga-workspace-heading h2,
+.assessment-page .ga-cinematic-copy h1 {
+  margin: 10px 0 0;
+  color: var(--plum);
+  font: 600 clamp(36px, 5vw, 58px)/1.04 "Cormorant Garamond", Georgia, serif;
+}
+.assessment-page .ga-workspace-heading h2 { font-size: clamp(30px, 4vw, 42px); }
+.assessment-page .ga-workspace-heading .form-intro,
+.assessment-page .ga-cinematic-copy .form-intro { max-width: 46ch; }
+
+.assessment-page .ga-cinematic {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(280px, .95fr);
+  gap: 20px 36px;
+  align-items: center;
+  min-height: 100%;
+}
+.assessment-page .ga-cinematic-copy h1 { max-width: 11ch; }
+.assessment-page .ga-launches {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 28px;
+}
+.assessment-page .ga-launch {
+  display: grid;
+  gap: 6px;
+  min-height: 132px;
+  padding: 18px 18px 16px;
+  border: 1px solid #f3d5c8;
+  border-radius: 22px;
+  background: linear-gradient(180deg, #fffffff2, #fff6efd9);
+  box-shadow: 0 16px 36px #3b243612;
+  color: var(--plum);
+  cursor: pointer;
+  text-align: left;
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.assessment-page .ga-launch:hover {
+  transform: translateY(-3px);
+  border-color: var(--rose-gold);
+  box-shadow: 0 22px 40px #4a204018;
+}
+.assessment-page .ga-launch em {
+  color: var(--coral);
+  font: 700 11px/1 "DM Sans", Arial, sans-serif;
+  letter-spacing: .18em;
+}
+.assessment-page .ga-launch strong {
+  font: 600 24px/1 "Cormorant Garamond", Georgia, serif;
+}
+.assessment-page .ga-launch span { color: var(--muted); font-size: 12px; line-height: 1.5; }
+.assessment-page .ga-launch-ai {
+  background: linear-gradient(165deg, #4a2040, #672b58 62%, #c45c6a);
+  border-color: #4a2040;
+  color: var(--ivory);
+}
+.assessment-page .ga-launch-ai em { color: #f0d5a8; }
+.assessment-page .ga-launch-ai span { color: #f7e9e4; }
+.assessment-page .ga-recent {
+  display: grid;
+  gap: 4px;
+  width: 100%;
+  margin-top: 18px;
+  padding: 16px 18px;
+  border: 1px solid #f3d5c8;
+  border-radius: 20px;
+  background: #ffffffb8;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 12px 28px #3b24360c;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+.assessment-page .ga-recent strong {
+  color: var(--plum);
+  font: 600 22px/1.1 "Cormorant Garamond", Georgia, serif;
+}
+.assessment-page .ga-recent > span { color: var(--coral); font-size: 11px; font-weight: 700; }
+.assessment-page .ga-recent p:last-child {
+  margin: 6px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
+.assessment-page .ga-recent-empty { cursor: default; }
+
+.assessment-page .ga-orbit {
+  position: relative;
+  width: min(100%, 460px);
+  margin: 0 auto 18px;
+  aspect-ratio: .88;
+}
+.assessment-page .ga-orbit-core {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 100%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 42%, #ffffffd9, #fff4ec99 58%, #ffd4c233);
+  box-shadow:
+    inset 0 0 0 1px #d4a07a55,
+    0 0 0 18px #ffffff55,
+    0 28px 60px #4a20401c;
+}
+.assessment-page .ga-orbit-core .ga-hero-face {
+  width: 82%;
+  height: 82%;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 18px 40px #4a20401f;
+}
+.assessment-page .ga-hero-face {
+  position: relative;
+}
+.assessment-page .ga-hero-face-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 18%;
+}
+.assessment-page .ga-hero-face-map {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  filter: drop-shadow(0 0 5px #d4a07a55);
+}
+.assessment-page .ga-hero-scan {
+  position: absolute;
+  left: 14%;
+  right: 14%;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, #d4a07a, var(--coral), #d4a07a, transparent);
+  box-shadow: 0 0 12px #d4a07a88;
+  pointer-events: none;
+  animation: ga-hero-scan 3.8s ease-in-out infinite alternate;
+}
+.assessment-page .ga-orbit-core p {
+  position: absolute;
+  bottom: 11%;
+  z-index: 2;
+  margin: 0;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+.assessment-page .ga-orb {
+  position: absolute;
+  display: grid;
+  min-width: 92px;
+  padding: 10px 14px 8px;
+  border: 1px solid #d4a07a66;
+  border-radius: 16px;
+  background: #fffffff0;
+  box-shadow: 0 12px 28px #4a204014;
+  backdrop-filter: blur(18px);
+}
+.assessment-page .ga-orb strong {
+  color: var(--plum);
+  font: 600 26px/1 "Cormorant Garamond", Georgia, serif;
+}
+.assessment-page .ga-orb span { color: var(--muted); font-size: 10px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+.assessment-page .ga-orb-1 { top: 6%; right: -4%; }
+.assessment-page .ga-orb-2 { top: 38%; left: -6%; }
+.assessment-page .ga-orb-3 { right: -2%; bottom: 24%; }
+.assessment-page .ga-orb-4 { bottom: 6%; left: 10%; }
+
+.assessment-page .ga-manual,
+.assessment-page .ga-ai,
+.assessment-page .ga-archive {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+}
+.assessment-page .ga-category-column {
+  display: grid;
+  gap: 12px;
+  margin-top: 22px;
+}
+.assessment-page .ga-category-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 14px;
+  align-items: center;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: #fffffff0;
+  cursor: pointer;
+  transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+.assessment-page .ga-category-card:hover { transform: translateX(4px); }
+.assessment-page .ga-category-card.selected {
+  border-color: var(--coral);
+  box-shadow: 0 0 0 3px #c45c6a1c, 0 14px 28px #4a204012;
+  background: #fffaf7;
+}
+.assessment-page .ga-category-card input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.assessment-page .ga-category-card:focus-within { outline: 2px solid var(--coral); outline-offset: 3px; }
+.assessment-page .ga-category-icon {
+  display: grid;
+  width: 46px;
+  height: 46px;
+  place-items: center;
+  border-radius: 14px;
+  background: linear-gradient(145deg, #fff4ec, #ffd4c2);
+  color: var(--plum);
+}
+.assessment-page .ga-category-card strong {
+  display: block;
+  color: var(--plum);
+  font: 600 26px/1 "Cormorant Garamond", Georgia, serif;
+}
+.assessment-page .ga-category-card em {
+  display: block;
+  margin-top: 2px;
+  color: var(--coral);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 700;
+}
+.assessment-page .ga-category-card span { color: var(--muted); font-size: 13px; }
+.assessment-page .ga-step-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+.assessment-page .ga-step-actions .assessment-select-all { margin-top: 0; }
+.assessment-page .ga-step-actions .submit-button,
+.assessment-page .ga-step-actions .secondary-button {
+  width: auto;
+  min-width: 148px;
+  margin-top: 0;
+  padding: 0 22px;
+}
+.assessment-page .ga-question-pane,
+.assessment-page .ga-review {
+  max-width: 720px;
+  margin-top: 18px;
+  padding: 22px 24px 20px;
+  border: 1px solid #f3d5c8;
+  border-radius: 26px;
+  background: #fffffff2;
+  box-shadow: 0 20px 48px #3b243612;
+}
+.assessment-page .ga-question-pane h3 {
+  margin: 18px 0 16px;
+  color: var(--plum);
+  font: 600 30px/1.15 "Cormorant Garamond", Georgia, serif;
+}
+.assessment-page .ga-progress-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+.assessment-page .ga-progress-track {
+  overflow: hidden;
+  height: 8px;
+  margin-top: 10px;
+  border-radius: 999px;
+  background: #f0cfc3;
+}
+.assessment-page .ga-progress-fill,
+.assessment-page .ga-progress-bar {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--plum), var(--coral));
+}
+.assessment-page .ga-choice-grid {
+  display: grid;
+  gap: 8px;
+}
+.assessment-page .ga-choice {
+  min-height: 52px;
+  padding: 0 18px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #fffaf7;
+  color: var(--plum);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  transition: background .16s ease, color .16s ease, border-color .16s ease;
+}
+.assessment-page .ga-choice:hover { border-color: var(--rose-gold); }
+.assessment-page .ga-choice.selected {
+  border-color: var(--plum);
+  background: var(--plum);
+  color: var(--ivory);
+  box-shadow: 0 10px 22px #4a204028;
+}
+.assessment-page .ga-choice-skip.selected {
+  background: #fff;
+  color: var(--muted);
+  border-color: var(--line);
+  box-shadow: none;
+}
+.assessment-page .ga-review-list {
+  display: grid;
+  gap: 10px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.assessment-page .ga-review-list li {
+  display: grid;
+  gap: 4px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #fffaf7;
+}
+.assessment-page .ga-review-list span { color: var(--muted); font-size: 12px; }
+.assessment-page .ga-review-list strong { color: var(--plum); font-size: 14px; }
+
+.assessment-page .ga-ai-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(280px, .85fr);
+  gap: 20px;
+  align-items: start;
+  margin-top: 18px;
+  flex: 1;
+}
+.assessment-page .ga-chamber-stage {
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid #d4a07a66;
+  border-radius: 32px;
+  background:
+    radial-gradient(circle at 50% 38%, #ffffffd4, #fff4eccc 62%),
+    linear-gradient(180deg, #fffaf7, #ffe8dc);
+  box-shadow: inset 0 0 0 1px #ffffffa8, 0 24px 50px #4a204014;
+}
+.assessment-page .ga-drop { display: grid; gap: 12px; }
+.assessment-page .ga-file-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.assessment-page .ga-chamber-target {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  min-height: 420px;
+  padding: 22px 18px 18px;
+  overflow: hidden;
+  border-radius: 180px 180px 140px 140px;
+  background: radial-gradient(circle at 50% 42%, #ffffff, #fff4ec 70%);
+  box-shadow: inset 0 0 0 1px #d4a07a55;
+  cursor: pointer;
+}
+.assessment-page .ga-drop.dragging .ga-chamber-target,
+.assessment-page .ga-drop.has-preview .ga-chamber-target {
+  box-shadow: inset 0 0 0 2px var(--rose-gold), 0 0 0 6px #d4a07a22;
+}
+.assessment-page .ga-drop.has-error .ga-chamber-target { box-shadow: inset 0 0 0 2px var(--danger); }
+.assessment-page .ga-drop-placeholder {
+  display: grid;
+  width: 72px;
+  height: 72px;
+  place-items: center;
+  border-radius: 22px;
+  background: linear-gradient(145deg, #fff4ec, #ffd4c2);
+  color: var(--plum);
+  box-shadow: 0 10px 24px #4a204014;
+}
+.assessment-page .ga-chamber-photo {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 280px);
+  height: 320px;
+  object-fit: cover;
+  border-radius: 160px 160px 120px 120px;
+  box-shadow: 0 18px 40px #4a204028;
+}
+.assessment-page .ga-studio-face,
+.assessment-page .ga-studio-3d-frame,
+.assessment-page .ga-studio-face-spacer {
+  position: relative;
+  width: min(100%, 280px);
+  height: 320px;
+  overflow: hidden;
+  border-radius: 160px 160px 120px 120px;
+  box-shadow: 0 22px 48px #4a20402e;
+}
+.assessment-page .ga-studio-face-spacer { box-shadow: none; }
+.assessment-page .ga-studio-3d-frame {
+  background: radial-gradient(circle at 50% 38%, #fffaf7, #ffe8dc);
+  pointer-events: none;
+}
+.assessment-page .ga-studio-3d-canvas,
+.assessment-page .ga-studio-3d-frame canvas {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+.assessment-page .ga-studio-3d-loading {
+  display: grid;
+  place-items: center;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, #fffaf7, #ffe8dc);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.assessment-page .ga-model-credit {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: .03em;
+  text-align: center;
+}
+.assessment-page .ga-studio-face-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 18%;
+}
+.assessment-page .ga-studio-face-map {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  filter: drop-shadow(0 0 6px #d4a07a66);
+}
+.assessment-page .ga-studio-scan {
+  animation: ga-scan-svg 3.4s ease-in-out infinite;
+}
+.assessment-page .ga-studio-scan-soft {
+  opacity: .45;
+  animation-duration: 4.2s;
+  animation-delay: .6s;
+}
+.assessment-page .ga-face-map {
+  width: min(100%, 240px);
+  height: auto;
+}
+.assessment-page .ga-face-map.is-scanning .ga-face-scan {
+  animation: ga-scan-svg 2.8s ease-in-out infinite;
+}
+.assessment-page .ga-chamber-live {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: inherit;
+}
+.assessment-page .ga-scan-beam {
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--coral), transparent);
+  box-shadow: 0 0 18px #c45c6a99;
+  animation: ga-scan-y 1.8s ease-in-out infinite;
+}
+.assessment-page .ga-scan-pulse {
+  position: absolute;
+  inset: 18%;
+  border: 1px solid #d4a07a88;
+  border-radius: 50%;
+  animation: ga-pulse 1.8s ease-in-out infinite;
+}
+.assessment-page .ga-chamber-copy {
+  display: grid;
+  gap: 4px;
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: center;
+}
+.assessment-page .ga-chamber-copy strong { color: var(--plum); font-size: 15px; }
+.assessment-page .ga-chamber-copy em {
+  color: var(--plum);
+  font-style: normal;
+  font-weight: 600;
+}
+.assessment-page .ga-drop-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.assessment-page .ga-drop-actions .secondary-button {
+  width: auto;
+  min-height: 38px;
+  padding: 0 14px;
+}
+.assessment-page .ga-ai-panel {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  padding: 20px;
+  border: 1px solid #f3d5c8;
+  border-radius: 26px;
+  background: #fffffff0;
+  box-shadow: 0 18px 40px #3b243610;
+  backdrop-filter: blur(18px);
+}
+.assessment-page .ga-ai-channels { display: grid; gap: 8px; }
+.assessment-page .ga-channel {
+  display: grid;
+  gap: 2px;
+  min-height: 58px;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #fffaf7;
+  color: var(--plum);
+  cursor: pointer;
+  text-align: left;
+}
+.assessment-page .ga-channel.active {
+  border-color: var(--coral);
+  box-shadow: 0 0 0 3px #c45c6a1c;
+  background: #fff;
+}
+.assessment-page .ga-channel.ready strong::after {
+  margin-left: 8px;
+  color: var(--coral);
+  content: "â—";
+  font-size: 9px;
+  vertical-align: middle;
+}
+.assessment-page .ga-channel span { color: var(--muted); font-size: 12px; }
+.assessment-page .ga-consent-panel {
+  display: grid;
+  gap: 8px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: linear-gradient(180deg, #fffaf7, #fff);
+}
+.assessment-page .ga-consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.55;
+}
+.assessment-page .ga-consent input {
+  width: 18px;
+  height: 18px;
+  margin-top: 3px;
+  flex: 0 0 auto;
+  accent-color: var(--plum);
+}
+.assessment-page .ga-consent strong {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--plum);
+}
+.assessment-page .ga-analyze-button {
+  width: 100%;
+  max-width: none;
+  min-height: 52px;
+  margin-top: 4px;
+}
+.assessment-page .ga-progress {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #fff4ec;
+  color: var(--plum);
+  font-size: 13px;
+}
+.assessment-page .ga-progress-bar { width: 38%; animation: ga-progress-slide 1.2s ease-in-out infinite; }
+.assessment-page .ga-error-block { display: grid; gap: 8px; }
+.assessment-page .ga-error-block p { margin: 0; }
+.assessment-page .ga-ai-panel > .notice { margin-top: 0; }
+.assessment-page .ga-report {
+  margin-top: 8px;
+  border: 1px solid #bdd6b7;
+  border-radius: 20px;
+  padding: 18px;
+  background: #f7fbf4;
+}
+.assessment-page .ga-report h3 {
+  margin: 0;
+  color: var(--plum);
+  font: 600 24px/1.1 "Cormorant Garamond", Georgia, serif;
+}
+.assessment-page .ga-prediction { margin-top: 14px; }
+.assessment-page .ga-prediction h4,
+.assessment-page .ga-history-card h4,
+.assessment-page .ga-report h4 {
+  margin: 12px 0 8px;
+  color: var(--plum);
+}
+.assessment-page .ga-prediction-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.assessment-page .ga-meter-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.assessment-page .ga-meter-track {
+  display: block;
+  overflow: hidden;
+  height: 8px;
+  border-radius: 999px;
+  background: #efe0d6;
+}
+.assessment-page .ga-meter-fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--plum), var(--rose-gold));
+}
+
+.assessment-page .ga-history-filters {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 14px;
+  margin-top: 20px;
+}
+.assessment-page .ga-history-card {
+  position: relative;
+  overflow: hidden;
+  padding: 22px 22px 18px;
+  border: 1px solid #f3d5c8;
+  border-radius: 22px;
+  background: linear-gradient(180deg, #fff, #fffaf7);
+  box-shadow: 0 14px 32px #3b243610;
+}
+.assessment-page .ga-history-card::before {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--plum), var(--coral));
+  content: "";
+}
+.assessment-page .ga-history-card header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+.assessment-page .ga-history-card h3 {
+  margin: 8px 0 0;
+  color: var(--plum);
+  font: 600 28px/1.1 "Cormorant Garamond", Georgia, serif;
+}
+.assessment-page .ga-history-card > p { margin: 12px 0 0; }
+.assessment-page .ga-history-card details {
+  border-top: 1px solid var(--line);
+  margin-top: 16px;
+  padding-top: 12px;
+}
+.assessment-page .ga-history-card summary {
+  color: var(--plum);
+  cursor: pointer;
+  font-weight: 700;
+}
+.assessment-page .ga-badge-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.assessment-page .ga-badge {
+  display: inline-flex;
+  padding: 4px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--plum);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+.assessment-page .ga-badge-ai {
+  border-color: #d4a07a;
+  background: #fff4ec;
+  color: var(--coral);
+}
+.assessment-page .ga-empty {
+  border: 1px dashed var(--line);
+  background: #fffaf7;
+  text-align: center;
+}
+.assessment-page .grooming-assessment-list { margin-top: 20px; gap: 16px; }
+
+@keyframes ga-enter {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes ga-scan-y {
+  0%, 100% { top: 18%; }
+  50% { top: 74%; }
+}
+@keyframes ga-hero-scan {
+  from { top: 12%; }
+  to { top: 76%; }
+}
+@keyframes ga-scan-svg {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(210px); }
+}
+@keyframes ga-pulse {
+  0%, 100% { transform: scale(.92); opacity: .35; }
+  50% { transform: scale(1.04); opacity: .8; }
+}
+@keyframes ga-progress-slide {
+  0% { transform: translateX(-120%); }
+  100% { transform: translateX(320%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .assessment-page .ga-workspace.active,
+  .assessment-page .ga-face-map.is-scanning .ga-face-scan,
+  .assessment-page .ga-studio-scan,
+  .assessment-page .ga-hero-scan,
+  .assessment-page .ga-scan-beam,
+  .assessment-page .ga-scan-pulse,
+  .assessment-page .ga-progress-bar { animation: none; }
+  .assessment-page .ga-hero-scan { top: 42%; }
+}
+@media (max-width: 1080px) {
+  .assessment-page .ga-cinematic,
+  .assessment-page .ga-ai-layout { grid-template-columns: 1fr; }
+  .assessment-page .ga-orbit { max-width: 380px; aspect-ratio: 1; }
+}
+@media (max-width: 780px) {
+  .assessment-page .ga-studio { grid-template-columns: 1fr; }
+  .assessment-page .ga-mobile-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+  .assessment-page .ga-mobile-bar .brand-name { font-size: 32px; color: var(--plum); }
+  .assessment-page .ga-mobile-bar .ga-brand-kicker { color: var(--coral); }
+  .assessment-page .ga-rail {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 30;
+    width: min(84vw, 300px);
+    height: 100dvh;
+    transform: translateX(-105%);
+    transition: transform .2s ease;
+    box-shadow: 18px 0 40px #1d101c44;
+  }
+  .assessment-page .menu-open .ga-rail { transform: translateX(0); }
+  .assessment-page .ga-sidebar-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 25;
+    border: 0;
+    background: #21192366;
+  }
+  .assessment-page .ga-workspace { padding: 16px 16px 48px; }
+  .assessment-page .ga-launches,
+  .assessment-page .ga-history-filters { grid-template-columns: 1fr; }
+  .assessment-page .ga-cinematic-copy h1 { max-width: none; }
+  .assessment-page .ga-chamber-target { min-height: 340px; }
+}
+@media (max-width: 430px) {
+  .assessment-page .ga-question-pane,
+  .assessment-page .ga-review,
+  .assessment-page .ga-chamber-stage,
+  .assessment-page .ga-ai-panel { padding: 16px; }
+  .assessment-page .ga-step-actions .submit-button,
+  .assessment-page .ga-step-actions .secondary-button { width: 100%; }
+}
