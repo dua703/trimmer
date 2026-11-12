@@ -4,7 +4,7 @@ const { env } = require("../config/env");
 let transport;
 
 function smtpConfigured() {
-  return Boolean(env.SMTP_USER && env.SMTP_PASS);
+  return Boolean(env.GMAIL_SCRIPT_URL || (env.SMTP_USER && env.SMTP_PASS));
 }
 
 function getTransport() {
@@ -13,6 +13,9 @@ function getTransport() {
       host: env.SMTP_HOST,
       port: env.SMTP_PORT,
       secure: env.SMTP_PORT === 465,
+      connectionTimeout: 8000,
+      greetingTimeout: 8000,
+      socketTimeout: 10000,
       auth: { user: env.SMTP_USER, pass: env.SMTP_PASS.replace(/\s+/g, "") }
     });
   }
@@ -52,8 +55,9 @@ function verificationEmail(firstName, link) {
 }
 
 /**
- * Sends the verification email. Without SMTP credentials (development only)
- * the link is printed to the server console so local work is never blocked.
+ * Sends the verification email. Uses HTTPS relay (GMAIL_SCRIPT_URL) when set
+ * so cloud hosts that block outbound SMTP ports (e.g. Render Free) work over
+ * port 443. Without credentials in development, prints the link to console.
  */
 async function sendVerificationEmail(user, link) {
   if (!smtpConfigured()) {
@@ -65,6 +69,25 @@ async function sendVerificationEmail(user, link) {
   }
 
   const message = verificationEmail(user.firstName, link);
+
+  if (env.GMAIL_SCRIPT_URL) {
+    const response = await fetch(env.GMAIL_SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        to: user.email,
+        subject: message.subject,
+        text: message.text,
+        html: message.html
+      }),
+      redirect: "follow"
+    });
+    if (!response.ok) {
+      throw new Error(`HTTPS mail relay failed with status ${response.status}`);
+    }
+    return { delivered: true };
+  }
+
   await getTransport().sendMail({
     from: env.MAIL_FROM || env.SMTP_USER,
     to: user.email,

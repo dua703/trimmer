@@ -19,6 +19,7 @@ const envSchema = z.object({
   SMTP_USER: z.string().optional().default(""),
   SMTP_PASS: z.string().optional().default(""),
   MAIL_FROM: z.string().optional().default(""),
+  GMAIL_SCRIPT_URL: z.string().url().optional().or(z.literal("")).default(""),
   EMAIL_VERIFICATION_TTL_HOURS: z.coerce.number().positive().default(24)
 });
 
