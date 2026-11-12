@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useState } from "react";
+import { startTransition, useActionState, useEffect, useState } from "react";
 import {
   deleteAssessment,
   saveAssessment,
@@ -36,6 +36,31 @@ async function previewDeleteAssessment(_formData: FormData) {
   return;
 }
 
+function profileToFormValues(source: Profile) {
+  return {
+    firstName: source.firstName,
+    middleName: source.middleName || "",
+    lastName: source.lastName,
+    email: source.email,
+    dateOfBirth: source.dateOfBirth?.slice(0, 10) || "",
+    gender: source.gender || "",
+    skinType: source.groomingProfile.skinType,
+    hairType: source.groomingProfile.hairType,
+    hairConcerns: source.groomingProfile.hairConcerns,
+    beardStyle: source.groomingProfile.beardStyle,
+    groomingPreferences: source.groomingProfile.groomingPreferences,
+    skinCareGoals: source.groomingProfile.skinCareGoals,
+    hairCareGoals: source.groomingProfile.hairCareGoals,
+    sensitivities: source.groomingProfile.sensitivities,
+    routineFrequency: source.preferences.routineFrequency,
+    budgetAmount: String(source.preferences.budgetAmount),
+    budgetCurrency: source.preferences.budgetCurrency,
+    language: source.preferences.language,
+    notifyEmail: source.preferences.notifications.email,
+    assessmentReminders: source.preferences.notifications.assessmentReminders,
+  };
+}
+
 export function ProfileManager({
   profile,
   assessments,
@@ -51,28 +76,14 @@ export function ProfileManager({
   const [assessmentState, assessmentAction, assessmentPending] = useActionState(preview ? previewSaveAssessment : saveAssessment, undefined);
   const [assessmentResults, setAssessmentResults] = useState([{ label: "", value: "" }]);
   const activeProfile = profileState?.profile ?? profile;
-  const [formValues, setFormValues] = useState(() => ({
-    firstName: profile.firstName,
-    middleName: profile.middleName || "",
-    lastName: profile.lastName,
-    email: profile.email,
-    dateOfBirth: profile.dateOfBirth?.slice(0, 10) || "",
-    gender: profile.gender || "",
-    skinType: profile.groomingProfile.skinType,
-    hairType: profile.groomingProfile.hairType,
-    hairConcerns: profile.groomingProfile.hairConcerns,
-    beardStyle: profile.groomingProfile.beardStyle,
-    groomingPreferences: profile.groomingProfile.groomingPreferences,
-    skinCareGoals: profile.groomingProfile.skinCareGoals,
-    hairCareGoals: profile.groomingProfile.hairCareGoals,
-    sensitivities: profile.groomingProfile.sensitivities,
-    routineFrequency: profile.preferences.routineFrequency,
-    budgetAmount: String(profile.preferences.budgetAmount),
-    budgetCurrency: profile.preferences.budgetCurrency,
-    language: profile.preferences.language,
-    notifyEmail: profile.preferences.notifications.email,
-    assessmentReminders: profile.preferences.notifications.assessmentReminders,
-  }));
+  const [formValues, setFormValues] = useState(() => profileToFormValues(profile));
+
+  useEffect(() => {
+    if (profileState?.profile) {
+      setFormValues(profileToFormValues(profileState.profile));
+    }
+  }, [profileState?.profile]);
+
   const [leftId, setLeftId] = useState(assessments[0]?.id || "");
   const [rightId, setRightId] = useState(assessments[1]?.id || assessments[0]?.id || "");
   const left = assessments.find((item) => item.id === leftId);
@@ -149,7 +160,16 @@ export function ProfileManager({
           </section>
         )}
 
-        <form action={profileAction} className="profile-form">
+        <form
+          className="profile-form"
+          onSubmit={(event) => {
+            event.preventDefault();
+            const formData = new FormData(event.currentTarget);
+            startTransition(() => {
+              profileAction(formData);
+            });
+          }}
+        >
           <section className="profile-panel" hidden={section !== "account"}>
             <p className="eyebrow">Account</p>
             <h2>Personal information</h2>
