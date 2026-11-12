@@ -28,8 +28,7 @@ export function LoginForm({
         Welcome back
       </h1>
       <p className="mt-3 text-[15px] leading-7" style={{ color: "#7A534C" }}>
-        Continue your grooming ritual with email, or username when the backend
-        supports it.
+        Continue your grooming ritual with email or username.
       </p>
 
       <form action={formAction} className="mt-7 space-y-4" noValidate>
