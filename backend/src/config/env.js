@@ -40,4 +40,19 @@ if (Boolean(result.data.SMTP_USER) !== Boolean(result.data.SMTP_PASS)) {
   throw new Error("SMTP_USER and SMTP_PASS must either both be set or both be empty.");
 }
 
+function normalizeProductionFrontendUrl(url) {
+  if (!url) return url;
+  return url
+    .replace(/\/+$/, "")
+    .replace(
+      /^https:\/\/trimmer1-[a-z0-9-]+-dua-rizwan-s-projects\.vercel\.app$/i,
+      "https://trimmer1-three.vercel.app"
+    );
+}
+
+result.data.FRONTEND_URL = normalizeProductionFrontendUrl(result.data.FRONTEND_URL);
+if (result.data.CORS_ORIGIN) {
+  result.data.CORS_ORIGIN = normalizeProductionFrontendUrl(result.data.CORS_ORIGIN);
+}
+
 module.exports = { env: result.data };
