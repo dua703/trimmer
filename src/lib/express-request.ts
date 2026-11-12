@@ -1,5 +1,6 @@
 import { getAuthApiUrl } from "@/lib/auth-api";
 import { getAccessToken } from "@/lib/auth-session";
+import type { Profile } from "@/lib/profile";
 
 type ApiError = {
   error?: string;
@@ -12,6 +13,7 @@ type ApiSuccess = {
   message?: string;
   recoveryKeys?: string[];
   user?: Record<string, unknown>;
+  profile?: Profile;
   assessment?: {
     assessmentType?: "manual" | "ai";
     summary: string;

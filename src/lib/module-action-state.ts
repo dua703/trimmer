@@ -1,7 +1,10 @@
+import type { Profile } from "@/lib/profile";
+
 export type ActionState = {
   error?: string;
   message?: string;
   recoveryKeys?: string[];
+  profile?: Profile;
   assessment?: {
     assessmentType?: "manual" | "ai";
     summary: string;

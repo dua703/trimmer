@@ -50,6 +50,29 @@ export function ProfileManager({
   const [profileState, profileAction, profilePending] = useActionState(preview ? previewUpdateProfile : updateProfile, undefined);
   const [assessmentState, assessmentAction, assessmentPending] = useActionState(preview ? previewSaveAssessment : saveAssessment, undefined);
   const [assessmentResults, setAssessmentResults] = useState([{ label: "", value: "" }]);
+  const activeProfile = profileState?.profile ?? profile;
+  const [formValues, setFormValues] = useState(() => ({
+    firstName: profile.firstName,
+    middleName: profile.middleName || "",
+    lastName: profile.lastName,
+    email: profile.email,
+    dateOfBirth: profile.dateOfBirth?.slice(0, 10) || "",
+    gender: profile.gender || "",
+    skinType: profile.groomingProfile.skinType,
+    hairType: profile.groomingProfile.hairType,
+    hairConcerns: profile.groomingProfile.hairConcerns,
+    beardStyle: profile.groomingProfile.beardStyle,
+    groomingPreferences: profile.groomingProfile.groomingPreferences,
+    skinCareGoals: profile.groomingProfile.skinCareGoals,
+    hairCareGoals: profile.groomingProfile.hairCareGoals,
+    sensitivities: profile.groomingProfile.sensitivities,
+    routineFrequency: profile.preferences.routineFrequency,
+    budgetAmount: String(profile.preferences.budgetAmount),
+    budgetCurrency: profile.preferences.budgetCurrency,
+    language: profile.preferences.language,
+    notifyEmail: profile.preferences.notifications.email,
+    assessmentReminders: profile.preferences.notifications.assessmentReminders,
+  }));
   const [leftId, setLeftId] = useState(assessments[0]?.id || "");
   const [rightId, setRightId] = useState(assessments[1]?.id || assessments[0]?.id || "");
   const left = assessments.find((item) => item.id === leftId);
@@ -57,7 +80,11 @@ export function ProfileManager({
   const resultLabels = [...new Set([...(left?.results || []), ...(right?.results || [])].map((item) => item.label))];
   const leftValues = new Map((left?.results || []).map((item) => [item.label, item.value]));
   const rightValues = new Map((right?.results || []).map((item) => [item.label, item.value]));
-  const fullName = [profile.firstName, profile.middleName, profile.lastName].filter(Boolean).join(" ");
+  const fullName = [activeProfile.firstName, activeProfile.middleName, activeProfile.lastName].filter(Boolean).join(" ");
+
+  function setFieldValue<K extends keyof typeof formValues>(key: K, value: (typeof formValues)[K]) {
+    setFormValues((current) => ({ ...current, [key]: value }));
+  }
 
   function showSection(next: DashboardSection) {
     setSection(next);
@@ -108,15 +135,15 @@ export function ProfileManager({
         {section === "profile" && (
           <section className="profile-hero">
             <p className="eyebrow">Your grooming profile</p>
-            <h1>Welcome, {profile.firstName}</h1>
+            <h1>Welcome, {activeProfile.firstName}</h1>
             <p className="form-intro">Your Trimmer identity at a glance. Use the sidebar to update account details, routine, settings, or saved results.</p>
             <div className="profile-identity">
-              <AvatarUploader firstName={profile.firstName} profilePicture={profile.profilePicture} preview={preview} />
+              <AvatarUploader firstName={activeProfile.firstName} profilePicture={activeProfile.profilePicture} preview={preview} />
               <div className="profile-identity-text">
                 <p className="profile-full-name">{fullName}</p>
-                <p className="profile-username">@{profile.username}</p>
-                <p className="profile-auth">Signed in with {profile.authProvider}</p>
-                <p className="profile-auth">{profile.email}</p>
+                <p className="profile-username">@{activeProfile.username}</p>
+                <p className="profile-auth">Signed in with {activeProfile.authProvider}</p>
+                <p className="profile-auth">{activeProfile.email}</p>
               </div>
             </div>
           </section>
@@ -128,20 +155,20 @@ export function ProfileManager({
             <h2>Personal information</h2>
             <p className="form-intro">Your name and contact details for this Trimmer account.</p>
             <div className="form-grid">
-              <Field label="First name" name="firstName" required defaultValue={profile.firstName} />
-              <Field label="Middle name (optional)" name="middleName" defaultValue={profile.middleName || ""} />
-              <Field label="Last name" name="lastName" required defaultValue={profile.lastName} />
-              <Field label="Email" name="email" type="email" required defaultValue={profile.email} />
-              <Field label="Date of birth" name="dateOfBirth" type="date" max={getSixteenYearsAgoDate()} defaultValue={profile.dateOfBirth?.slice(0, 10) || ""} />
+              <Field label="First name" name="firstName" required value={formValues.firstName} onValueChange={(v) => setFieldValue("firstName", v)} />
+              <Field label="Middle name (optional)" name="middleName" value={formValues.middleName} onValueChange={(v) => setFieldValue("middleName", v)} />
+              <Field label="Last name" name="lastName" required value={formValues.lastName} onValueChange={(v) => setFieldValue("lastName", v)} />
+              <Field label="Email" name="email" type="email" required value={formValues.email} onValueChange={(v) => setFieldValue("email", v)} />
+              <Field label="Date of birth" name="dateOfBirth" type="date" max={getSixteenYearsAgoDate()} value={formValues.dateOfBirth} onValueChange={(v) => setFieldValue("dateOfBirth", v)} />
               <label className="field"><span>Gender (optional)</span>
-                <select name="gender" defaultValue={profile.gender}>
+                <select name="gender" value={formValues.gender} onChange={(event) => setFieldValue("gender", event.target.value)}>
                   <option value="">Prefer not to say</option><option value="female">Female</option><option value="male">Male</option>
                   <option value="non-binary">Non-binary</option><option value="self-described">Self-described</option>
                 </select>
               </label>
               <label className="field">
                 <span>Username</span>
-                <input value={profile.username} disabled readOnly aria-describedby="username-help" />
+                <input value={activeProfile.username} disabled readOnly aria-describedby="username-help" />
                 <small id="username-help" className="profile-field-hint">Cannot be changed here</small>
               </label>
             </div>
@@ -153,14 +180,14 @@ export function ProfileManager({
             <h2>Grooming profile</h2>
             <p className="form-intro">Tell Trimmer how you like to care for your skin, hair, and beard.</p>
             <div className="form-grid">
-              <SelectField label="Skin type" name="skinType" defaultValue={profile.groomingProfile.skinType} options={["oily", "dry", "combination", "normal", "unsure"]} />
-              <SelectField label="Hair type" name="hairType" defaultValue={profile.groomingProfile.hairType} options={["straight", "wavy", "curly", "coily", "unsure"]} />
-              <Field label="Hair concerns" name="hairConcerns" defaultValue={profile.groomingProfile.hairConcerns} />
-              <Field label="Beard style" name="beardStyle" defaultValue={profile.groomingProfile.beardStyle} />
-              <Field label="Grooming preferences" name="groomingPreferences" defaultValue={profile.groomingProfile.groomingPreferences} />
-              <Field label="Skin-care goals" name="skinCareGoals" defaultValue={profile.groomingProfile.skinCareGoals} />
-              <Field label="Hair-care goals" name="hairCareGoals" defaultValue={profile.groomingProfile.hairCareGoals} />
-              <Field label="Sensitivities or allergies" name="sensitivities" defaultValue={profile.groomingProfile.sensitivities} />
+              <SelectField label="Skin type" name="skinType" value={formValues.skinType} onValueChange={(v) => setFieldValue("skinType", v)} options={["oily", "dry", "combination", "normal", "unsure"]} />
+              <SelectField label="Hair type" name="hairType" value={formValues.hairType} onValueChange={(v) => setFieldValue("hairType", v)} options={["straight", "wavy", "curly", "coily", "unsure"]} />
+              <Field label="Hair concerns" name="hairConcerns" value={formValues.hairConcerns} onValueChange={(v) => setFieldValue("hairConcerns", v)} />
+              <Field label="Beard style" name="beardStyle" value={formValues.beardStyle} onValueChange={(v) => setFieldValue("beardStyle", v)} />
+              <Field label="Grooming preferences" name="groomingPreferences" value={formValues.groomingPreferences} onValueChange={(v) => setFieldValue("groomingPreferences", v)} />
+              <Field label="Skin-care goals" name="skinCareGoals" value={formValues.skinCareGoals} onValueChange={(v) => setFieldValue("skinCareGoals", v)} />
+              <Field label="Hair-care goals" name="hairCareGoals" value={formValues.hairCareGoals} onValueChange={(v) => setFieldValue("hairCareGoals", v)} />
+              <Field label="Sensitivities or allergies" name="sensitivities" value={formValues.sensitivities} onValueChange={(v) => setFieldValue("sensitivities", v)} />
             </div>
             <SaveControls state={profileState} pending={profilePending} />
           </section>
@@ -170,21 +197,21 @@ export function ProfileManager({
             <h2>Preferences and settings</h2>
             <p className="form-intro">Choose how often you groom, your budget, language, and reminders.</p>
             <div className="form-grid">
-              <SelectField label="Routine preference" name="routineFrequency" defaultValue={profile.preferences.routineFrequency} options={["daily", "weekly"]} />
-              <Field label="Product budget" name="budgetAmount" type="number" min="0" step="0.01" defaultValue={String(profile.preferences.budgetAmount)} />
-              <SelectField label="Budget currency" name="budgetCurrency" defaultValue={profile.preferences.budgetCurrency} options={["USD", "PKR", "GBP", "EUR"]} />
-              <SelectField label="Preferred language" name="language" defaultValue={profile.preferences.language} options={["en", "ur"]} labels={languageLabels} />
+              <SelectField label="Routine preference" name="routineFrequency" value={formValues.routineFrequency} onValueChange={(v) => setFieldValue("routineFrequency", v)} options={["daily", "weekly"]} />
+              <Field label="Product budget" name="budgetAmount" type="number" min="0" step="0.01" value={formValues.budgetAmount} onValueChange={(v) => setFieldValue("budgetAmount", v)} />
+              <SelectField label="Budget currency" name="budgetCurrency" value={formValues.budgetCurrency} onValueChange={(v) => setFieldValue("budgetCurrency", v)} options={["USD", "PKR", "GBP", "EUR"]} />
+              <SelectField label="Preferred language" name="language" value={formValues.language} onValueChange={(v) => setFieldValue("language", v)} options={["en", "ur"]} labels={languageLabels} />
             </div>
             <div className="profile-pref-grid">
               <label className="profile-pref-tile">
-                <input type="checkbox" name="notifyEmail" defaultChecked={profile.preferences.notifications.email} />
+                <input type="checkbox" name="notifyEmail" checked={formValues.notifyEmail} onChange={(event) => setFieldValue("notifyEmail", event.target.checked)} />
                 <span>
                   <strong>Email notifications</strong>
                   <small>Receive account and routine updates by email</small>
                 </span>
               </label>
               <label className="profile-pref-tile">
-                <input type="checkbox" name="assessmentReminders" defaultChecked={profile.preferences.notifications.assessmentReminders} />
+                <input type="checkbox" name="assessmentReminders" checked={formValues.assessmentReminders} onChange={(event) => setFieldValue("assessmentReminders", event.target.checked)} />
                 <span>
                   <strong>Assessment reminders</strong>
                   <small>Get reminders to review your grooming progress</small>
@@ -278,28 +305,38 @@ export function ProfileManager({
   );
 }
 
-function Field({ label, name, defaultValue, type = "text", required = false, min, max, step }: {
-  label: string; name: string; defaultValue?: string; type?: string; required?: boolean; min?: string; max?: string; step?: string;
+function Field({ label, name, value, defaultValue, onValueChange, type = "text", required = false, min, max, step }: {
+  label: string; name: string; value?: string; defaultValue?: string; onValueChange?: (value: string) => void; type?: string; required?: boolean; min?: string; max?: string; step?: string;
 }) {
   const isName = name === "firstName" || name === "middleName" || name === "lastName";
   return <label className="field"><span>{label}</span><input
     name={name}
     type={type}
-    defaultValue={defaultValue}
+    {...(value !== undefined ? { value } : { defaultValue })}
     required={required}
     min={min}
     max={max}
     step={step}
     pattern={isName ? String.raw`[\p{L}]+(?: [\p{L}]+)*` : undefined}
     title={isName ? "Use letters and spaces only." : undefined}
-    onChange={isName ? (event) => { event.currentTarget.value = sanitizeNameInput(event.currentTarget.value); } : undefined}
+    onChange={(event) => {
+      const nextValue = isName ? sanitizeNameInput(event.currentTarget.value) : event.currentTarget.value;
+      if (isName && event.currentTarget.value !== nextValue) {
+        event.currentTarget.value = nextValue;
+      }
+      onValueChange?.(nextValue);
+    }}
   /></label>;
 }
 
-function SelectField({ label, name, defaultValue, options, labels }: {
-  label: string; name: string; defaultValue: string; options: string[]; labels?: Record<string, string>;
+function SelectField({ label, name, value, defaultValue, onValueChange, options, labels }: {
+  label: string; name: string; value?: string; defaultValue?: string; onValueChange?: (value: string) => void; options: string[]; labels?: Record<string, string>;
 }) {
-  return <label className="field"><span>{label}</span><select name={name} defaultValue={defaultValue}>{options.map((option) => <option key={option} value={option}>{labels?.[option] ?? formatOptionLabel(option)}</option>)}</select></label>;
+  return <label className="field"><span>{label}</span><select
+    name={name}
+    {...(value !== undefined ? { value } : { defaultValue })}
+    onChange={onValueChange ? (event) => onValueChange(event.target.value) : undefined}
+  >{options.map((option) => <option key={option} value={option}>{labels?.[option] ?? formatOptionLabel(option)}</option>)}</select></label>;
 }
 
 function formatOptionLabel(option: string) {

@@ -11,7 +11,7 @@ export async function updateProfile(
   formData: FormData,
 ): Promise<ActionState> {
   try {
-    await expressRequest("/profile", {
+    const response = await expressRequest("/profile", {
       method: "PATCH",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({
@@ -44,7 +44,7 @@ export async function updateProfile(
       }),
     });
     revalidatePath("/dashboard");
-    return { message: "Profile saved." };
+    return { message: "Profile saved.", profile: response.profile };
   } catch (error) {
     return {
       error:
